@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="RunJettyRunWebApp">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/htw-qna"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="RunJettyRunWebAppClassPathProvider"/>
+<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="runjettyrun.Bootstrap"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="htw-qna"/>
+<stringAttribute key="run_jetty_run.CONTEXT_ATTR" value="/htw-qna"/>
+<booleanAttribute key="run_jetty_run.ENABLE_JNDI_ATTR" value="false"/>
+<booleanAttribute key="run_jetty_run.ENABLE_NEED_CLIENT_AUTH_ATTR" value="false"/>
+<booleanAttribute key="run_jetty_run.ENABLE_PARENT_LOADER_PRIORITY_ATTR" value="true"/>
+<booleanAttribute key="run_jetty_run.ENABLE_SCANNER_ATTR" value="false"/>
+<booleanAttribute key="run_jetty_run.ENABLE_SSL_ATTR" value="false"/>
+<booleanAttribute key="run_jetty_run.IGNORE_SCAN_CLASS_WHEN_DEBUG_MODE" value="true"/>
+<stringAttribute key="run_jetty_run.JETTY_XML_PATH" value=""/>
+<stringAttribute key="run_jetty_run.KEYSTORE_ATTR" value="C:\Users\D063416\.keystore"/>
+<stringAttribute key="run_jetty_run.KEY_PWD_ATTR" value="changeit"/>
+<stringAttribute key="run_jetty_run.PORT_ATTR" value="8080"/>
+<stringAttribute key="run_jetty_run.PWD_ATTR" value="changeit"/>
+<stringAttribute key="run_jetty_run.SCANINTERVALSECONDS_ATTR" value="5"/>
+<stringAttribute key="run_jetty_run.SELECTED_JETTY_VERSION_ATTR" value="Jetty 6.1.26"/>
+<booleanAttribute key="run_jetty_run.SHOW_ADVANCE_ATTR" value="false"/>
+<stringAttribute key="run_jetty_run.SSL_PORT_ATTR" value="8443"/>
+<stringAttribute key="run_jetty_run.WEBAPPDIR_ATTR" value="WebContent"/>
+<mapAttribute key="run_jetty_run.WEB_CONTEXT_CLASSPATH_NON_CHECKED">
+<mapEntry key="C:\workspaces\JettyTest\htw-qna" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\eclipselink-2.5.1.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\javax.persistence-2.1.0.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\junit-4.12.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\log4j-api-2.1.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\log4j-core-2.1.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\log4j-jcl-2.1.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\WebContent\WEB-INF\lib\log4j-taglib-2.1.jar" value="1"/>
+<mapEntry key="C:\workspaces\JettyTest\htw-qna\build\classes" value="1"/>
+<mapEntry key="User Custom classpath" value="1"/>
+<mapEntry key="\htw-qna-org.eclipse.jst.j2ee.internal.module.container" value="1"/>
+<mapEntry key="\htw-qna-org.eclipse.jst.j2ee.internal.web.container" value="1"/>
+</mapAttribute>
+<listAttribute key="run_jetty_run.WEB_CONTEXT_CUSTOM_CLASSPATH">
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;htw-qna&quot; type=&quot;1&quot;/&gt;&#13;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry externalArchive=&quot;C:/jetty-distribution-9.3.6.v20151106&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#13;&#10;"/>
+</listAttribute>
+</launchConfiguration>

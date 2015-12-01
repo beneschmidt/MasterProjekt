@@ -1,0 +1,51 @@
+package com.sap.smap;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.sap.smap.entity.KanoClassification;
+import com.sap.smap.entity.SmapUser;
+import com.sap.smap.entity.Status;
+import com.sap.smap.entity.TechnicalRisk;
+import com.sap.smap.entity.UserStoryMap;
+import com.sap.smap.persistence.SmapEntityManagerFactory;
+import com.sap.smap.persistence.UserStoryMapPersistenceHelper;
+import com.sap.smap.utilities.CollectionUtils;
+import com.sap.smap.utilities.ReentranceLockMap;
+
+/**
+ * This is a startup class, that is listed in web.xml to perform actions on startup of the server.
+ * <p>In the current state of the application, test data is created in the database to work with.
+ */
+public class ApplicationStartUpListener implements ServletContextListener {
+
+	private static final Logger logger = LogManager.getLogger(ApplicationStartUpListener.class);
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		logger.info("===============================");
+		logger.info("Context initialised! Application is started....");
+
+		} catch (Exception e) {
+			logger.error("ApplicationStartup ran into an error! " + e.getMessage(), e);
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+	}
+
+}

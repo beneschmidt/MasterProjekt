@@ -1,0 +1,128 @@
+package com.sap.smap;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.sap.smap.entity.KanoClassification;
+import com.sap.smap.entity.SmapUser;
+import com.sap.smap.entity.Status;
+import com.sap.smap.entity.TechnicalRisk;
+import com.sap.smap.entity.UserStoryMap;
+import com.sap.smap.persistence.SmapEntityManagerFactory;
+import com.sap.smap.persistence.UserStoryMapPersistenceHelper;
+import com.sap.smap.utilities.CollectionUtils;
+import com.sap.smap.utilities.ReentranceLockMap;
+
+/**
+ * This is a startup class, that is listed in web.xml to perform actions on startup of the server.
+ * <p>In the current state of the application, test data is created in the database to work with.
+ */
+public class ApplicationStartUpListener implements ServletContextListener {
+
+	private static final Logger logger = LogManager.getLogger(ApplicationStartUpListener.class);
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		logger.info("===============================");
+		logger.info("Context initialised! Application is started....");
+
+		EntityManager entityManager = null;
+
+		try {
+			SmapEntityManagerFactory factory = SmapEntityManagerFactory.getInstance();
+			entityManager = factory.createManager();
+
+			Query tQuery = entityManager.createNamedQuery(TechnicalRisk.QUERY_ALL_TECHNICAL_RISKS);
+			List<TechnicalRisk> allTechnicalRisks = tQuery.getResultList();
+			if (allTechnicalRisks.size() == 0) {
+				createTechnicalRisks(entityManager);
+			}
+
+			Query kQuery = entityManager.createNamedQuery(KanoClassification.QUERY_ALL_KANO_CLASSIFICATIONS);
+			List<KanoClassification> allKanoClassifications = kQuery.getResultList();
+			if (allKanoClassifications.size() == 0) {
+				createKanoClassifications(entityManager);
+			}
+
+			Query sQuery = entityManager.createNamedQuery(Status.QUERY_ALL_STATUS);
+			List<Status> allStatus = sQuery.getResultList();
+			if (allStatus.size() == 0) {
+				createStatus(entityManager);
+			}
+
+			List<SmapUser> users = entityManager.createNamedQuery(SmapUser.QUERY_ALL_USERS).getResultList();
+			if (users.size() == 0) {
+				SmapUser adminUser = new SmapUser("Admin", "Max", "Power", "max.power@sap.com");
+				entityManager.persist(adminUser);
+			}
+
+			SmapUser adminUser = entityManager.find(SmapUser.class, "Admin");
+			logger.info("Admin user created: " + adminUser);
+
+			// has to be executed AFTER the depending objects were added
+			List<UserStoryMap> allMaps = mapHelper.getAll(entityManager);
+			if (allMaps.size() == 0) {
+				createTestMap(entityManager, adminUser);
+			}
+
+			prepareSynchronizeMapIds(entityManager);
+			logger.info("All entities were created...");
+			logger.info("====================================");
+		} catch (Exception e) {
+			logger.error("ApplicationStartup ran into an error! " + e.getMessage(), e);
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+
+	private void prepareSynchronizeMapIds(EntityManager entityManager) {
+		List<UserStoryMap> allUserStoryMaps = mapHelper.getAll(entityManager);
+		List<Long> mapIds = CollectionUtils.getIdList(allUserStoryMaps);
+		ReentranceLockMap.getInstance().addMapIds(mapIds);
+	}
+
+	private void createTestMap(EntityManager entityManager, SmapUser user) {
+		UserStoryMap map = new UserStoryMap();
+		map.setId(1l);
+		map.setName("FirstMap");
+		map.setEntryId("1");
+		mapHelper.insertWithNewTransaction(map, -1l, user, entityManager);
+
+		logger.debug("Personas:" + entityManager.find(UserStoryMap.class, 1L).getPersonas());
+	}
+
+	private void createKanoClassifications(EntityManager entityManager) {
+		entityManager.persist(KanoClassification.UNASSESSED);
+		entityManager.persist(KanoClassification.MUST_HAVE);
+		entityManager.persist(KanoClassification.SATISFIER);
+		entityManager.persist(KanoClassification.DELIGHTER);
+	}
+
+	private void createTechnicalRisks(EntityManager entityManager) {
+		entityManager.persist(TechnicalRisk.UNASSESSED);
+		entityManager.persist(TechnicalRisk.LOW);
+		entityManager.persist(TechnicalRisk.MEDIUM);
+		entityManager.persist(TechnicalRisk.HIGH);
+	}
+
+	private void createStatus(EntityManager entityManager) {
+		entityManager.persist(Status.TODO);
+		entityManager.persist(Status.IN_PROCESS);
+		entityManager.persist(Status.COMPLETED);
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+	}
+
+}
